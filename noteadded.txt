@@ -1,22 +1,22 @@
 $ git config --global user.name "Your Name"
 $ git config --global user.email "email@example.com"
-	//name and email config
+	//NAME AND EMAIL CONFIG
 
 $ mkdir learngit
 $ cd learngit
 $ pwd
 /Users/michael/learngit
-	//repository setup
+	//REPOSITORY SETUP
 $ git init
 Initialized empty Git repository in /Users/michael/learngit/.git/
-	//repository initialized
-
+	//REPOSITORY INITIALIZED
+------------------------------------------------------------------------------------------
 $ git add readme.txt
 $ git commit -m "wrote a readme file"
 [master (root-commit) eaadf4e] wrote a readme file
  1 file changed, 2 insertions(+)
  create mode 100644 readme.txt
-	//add and commit set
+	//ADD AND COMMIT SET
 	
 $ git status
 On branch master
@@ -27,5 +27,98 @@ Changes not staged for commit:
 	modified:   readme.txt
 
 no changes added to commit (use "git add" and/or "git commit -a")
-	//status checkout
+	//STATUS CHECKOUT
+
+$ git diff readme.txt 
+diff --git a/readme.txt b/readme.txt
+index 46d49bf..9247db6 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -1,2 +1,2 @@
+-Git is a version control system.
++Git is a distributed version control system.
+ Git is free software.
+	//DIFFERENCE CHECKOUT
+------------------------------------------------------------------------------------------
+$ git log
+commit 1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -> master)
+Author: Michael Liao <askxuefeng@gmail.com>
+Date:   Fri May 18 21:06:15 2018 +0800
+
+    append GPL
+
+commit e475afc93c209a690c39c13a46716e8fa000c366
+Author: Michael Liao <askxuefeng@gmail.com>
+Date:   Fri May 18 21:03:36 2018 +0800
+
+    add distributed
+
+commit eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0
+Author: Michael Liao <askxuefeng@gmail.com>
+Date:   Fri May 18 20:59:18 2018 +0800
+
+    wrote a readme file
+	//LOG CHECKOUT
+
+$ git log --pretty=oneline
+1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -> master) append GPL
+e475afc93c209a690c39c13a46716e8fa000c366 add distributed
+eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0 wrote a readme file
+	//ONELINE LOG CHECKOUT
+
+$ git reset --hard HEAD^
+HEAD is now at e475afc add distributed
+/*
+$ git reset --hard HEAD~1
+HEAD is now at e475afc add distributed
+*/
+	//LOG BACKINGOUT
+
+$ cat readme.txt
+Git is a distributed version control system.
+Git is free software.
+	//REREAD
+
+$ git reset --hard 1094a
+HEAD is now at 83b0afe append GPL
+	//ANOTHER WAY OF BACKINGOUT(WITH THE COMMIT ID)
+
+$ git reflog
+e475afc HEAD@{1}: reset: moving to HEAD^
+1094adb (HEAD -> master) HEAD@{2}: commit: append GPL
+e475afc HEAD@{3}: commit: add distributed
+eaadf4e HEAD@{4}: commit (initial): wrote a readme file
+	//COMMAND RECORD
+----------------------------------------------------------------------------------------------
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   readme.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	LICENSE
+
+no changes added to commit (use "git add" and/or "git commit -a")
+	//UNTRACKED DOCUMENT FOUND
+
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	new file:   LICENSE
+	modified:   readme.txt
+	//UNTRACKED DOCUMENT ADDED TO STAGE
+
+$ git commit -m "understand how stage works"
+[master e43a48b] understand how stage works
+ 2 files changed, 2 insertions(+)
+ create mode 100644 LICENSE
+	//STAGE CLEARED
+------------------------------------------------------------------------------------------------
 
