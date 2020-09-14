@@ -1,0 +1,31 @@
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+	//name and email config
+
+$ mkdir learngit
+$ cd learngit
+$ pwd
+/Users/michael/learngit
+	//repository setup
+$ git init
+Initialized empty Git repository in /Users/michael/learngit/.git/
+	//repository initialized
+
+$ git add readme.txt
+$ git commit -m "wrote a readme file"
+[master (root-commit) eaadf4e] wrote a readme file
+ 1 file changed, 2 insertions(+)
+ create mode 100644 readme.txt
+	//add and commit set
+	
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+	//status checkout
+
