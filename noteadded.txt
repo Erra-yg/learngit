@@ -337,3 +337,11 @@ Receiving objects: 100% (3/3), done.
 remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
 	//GIT CLONE
 ------------------------------------------------------------------------------------------
+$ git checkout -b dev
+fatal: A branch named 'dev' already exists.
+
+$ git branch
+  dev
+  featurel
+* master
+	//BRANCH SET
