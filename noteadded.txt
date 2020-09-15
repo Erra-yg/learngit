@@ -1,7 +1,7 @@
 $ git config --global user.name "Your Name"
 $ git config --global user.email "email@example.com"
 	//NAME AND EMAIL CONFIG
-
+------------------------------------------------------------------------------------------
 $ mkdir learngit
 $ cd learngit
 $ pwd
@@ -68,10 +68,10 @@ eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0 wrote a readme file
 
 $ git reset --hard HEAD^
 HEAD is now at e475afc add distributed
-/*
+/**
 $ git reset --hard HEAD~1
 HEAD is now at e475afc add distributed
-*/
+**/
 	//LOG BACKINGOUT
 
 $ cat readme.txt
@@ -115,10 +115,225 @@ Changes to be committed:
 	modified:   readme.txt
 	//UNTRACKED DOCUMENT ADDED TO STAGE
 
+$ git add readme.txt 
+$ git add LICENSE
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	new file:   LICENSE
+	modified:   readme.txt
+
 $ git commit -m "understand how stage works"
 [master e43a48b] understand how stage works
  2 files changed, 2 insertions(+)
  create mode 100644 LICENSE
+ 
+ $ git status
+On branch master
+nothing to commit, working tree clean
 	//STAGE CLEARED
 ------------------------------------------------------------------------------------------------
+$ git cat readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
+Creating a new branch is quick & simple.
+Additional tryment.(newly added line)
 
+$ git add readme.txt
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+	(use 'git restore --staged <file>..." to unstage)
+		modified:	readme.txt
+
+Untracked files:
+	(use "git add <file>..." to include in what will be committed)
+		gitskills/
+		wy1224.txt
+	//FIRST ADD
+$ git commit -m "Additional tryment"
+[master 88d0138] Additional	tryment
+ 1 file changed, 1 insertion(+)
+
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git resotre -- <file>..." to discard changes in working directory)
+
+	modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+	//FIRST COMMIT
+$ cat readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
+Creating a new branch is quick & simple.
+Additional tryment(ultimately).(newly added word)
+	//SECOND ADD
+$ git diff HEAD -- readme.txt
+diff --git a/readme.txt b/readme.txt
+index ed77ecb..1ebfc34 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -3,4 +3,4 @@ Git is free software distributed under the GPL.
+ Git has a mutable index called stage.
+ Git tracks changes of files.
+ Creating a new branch is quick & simple.
+-Additional tryment.
+\ No newline at end of file
++Additional tryment(ultimately).
+\ No newline at end of file
+	//DIFFERENCE OUTCOME
+-------------------------------------------------------------------------------------
+$ cat readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
+Creating a new branch is quick & simple.
+Additional tryment(ultimately).
+My stupid boss still prefers SVN.
+
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   noteadded.txt
+        modified:   readme.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        gitskills/
+        wy1224.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+	//MISTAKE1 ARISE
+$ git restore -- readme.txt
+#命令git restore -- readme.txt意思就是，
+#把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+#
+#一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+#
+#一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+$ cat readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
+Creating a new branch is quick & simple.
+Additional tryment.
+	//MISTAKE1 SOLVED
+
+$ cat readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
+Creating a new branch is quick & simple.
+Additional tryment.
+My stupid boss still prefers SVN.
+
+$ git add readme.txt
+	//MISTAKE2 ARISE
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   readme.txt
+
+/*
+$ git reset HEAD readme.txt
+Unstaged changes after reset:
+M       noteadded.txt
+M       readme.txt
+#Git同样告诉我们
+#用命令git reset HEAD <file>可以把暂存区的修改撤销掉（unstage），重新放回工作区
+*/
+
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   noteadded.txt
+        modified:   readme.txt
+	//BACK TO WORKING DIRECTORY
+$ git restore -- readme.txt
+
+$ git status
+On branch master
+nothing to commit, working tree clean
+	//MISTAKE2 SOLVED
+----------------------------------------------------------------------------------------
+$ git add test.txt
+$ git commit -m"add test.txt"
+[master 0a1578b] add test.txt
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 test.txt
+
+$ rm test.txt
+#一般情况下，你通常直接在文件管理器中把没用的文件删了，或者用rm命令删了
+
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 2 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   noteadded.txt
+        deleted:    test.txt
+	//DELETED FILES FOUND
+$ git rm test.txt
+rm 'test.txt'
+
+$ git commit -m "remove test.txt"
+[master d46f35e] remove test.txt
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 test.txt
+	//SWITCH1:GIT RM&COMMIT
+$ git checkout -- test.txt
+	//SWITCH2:GIT CHECKOUT
+------------------------------------------------------------------------------------------
+$ ssh-keygen -t rsa -C "rrhatouwakaerra@163.com"
+#go to File Users for id_rsa and id_rsa.pub
+#then go to github to Add SSH Key
+	//SSH
+$ git remote add origin git@github.com:Erra-yg/learngit.git
+#目前，在GitHub上的这个learngit仓库还是空的
+#GitHub告诉我们，可以从这个仓库克隆出新的仓库，也可以把一个已有的本地仓库与之关联
+#然后，把本地仓库的内容推送到GitHub仓库。
+
+$ git push -u origin master
+#let's git push
+$ git push origin master
+#afterwards use
+	//GIT PUSH
+$ git clone git@github.com:Erra-yg/gitskills.git
+Cloning into 'gitskills'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+Receiving objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+	//GIT CLONE
+------------------------------------------------------------------------------------------
